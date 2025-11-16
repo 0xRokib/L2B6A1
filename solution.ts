@@ -17,6 +17,14 @@ function getLength(value: string | unknown[]): number {
   throw new Error("Invalid type");
 }
 
+class Person {
+  constructor(public name: string, public age: number) {}
+
+  getDetails(): string {
+    return `Name: ${this.name}, Age: ${this.age}`;
+  }
+}
+
 type Item = {
   title: string;
   rating: number;
