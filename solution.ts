@@ -36,3 +36,62 @@ type User = {
 function filterActiveUsers(users: readonly User[]): User[] {
   return users.filter((user) => user.isActive);
 }
+
+interface Book {
+  title: string;
+  author: string;
+  publishedYear: number;
+  isAvailable: boolean;
+}
+
+function printBookDetails(book: Book): void {
+  console.log(
+    `Title: ${book.title}, Author: ${book.author}, Published: ${
+      book.publishedYear
+    }, Available: ${book.isAvailable ? "Yes" : "No"}`
+  );
+}
+
+function getUniqueValues<T extends string | number>(arr1: T[], arr2: T[]): T[] {
+  const result: T[] = [];
+  const seen: {
+    [key: string]: boolean;
+  } = {};
+
+  for (let i = 0; i < arr1.length; i++) {
+    const key = String(arr1[i]);
+    if (!seen[key]) {
+      seen[key] = true;
+      result[result.length] = arr1[i];
+    }
+  }
+  for (let i = 0; i < arr2.length; i++) {
+    const key = String(arr2[i]);
+    if (!seen[key]) {
+      seen[key] = true;
+      result[result.length] = arr2[i];
+    }
+  }
+
+  return result;
+}
+
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+};
+
+function calculateTotalPrice(products: Product[]) {
+  if (products.length === 0) return 0;
+  return products
+    .map((product) => {
+      const baseTotal = product.price * product.quantity;
+      const discountAmount = product.discount
+        ? (baseTotal * product.discount) / 100
+        : 0;
+      return baseTotal - discountAmount;
+    })
+    .reduce((sum, value) => sum + value, 0);
+}
